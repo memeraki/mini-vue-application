@@ -4,9 +4,14 @@
     <div v-else class="recipes">
       <template v-for="recipe of recipes" :key="recipe.idMeal">
         <Recipe 
-          :meal="recipe"  
+          :meal="recipe"
+          @click="showDetails(recipe.idMeal)"
+          :class="selected == recipe.idMeal || selected == 0 ? '' : 'not-selected'"
         />
-        <div class="details">Details about: {{recipe.idMeal}}</div>
+        <Details 
+          :meal="recipe"
+          v-if="selected == recipe.idMeal" 
+        />
       </template>
     </div>
   </div>
@@ -14,11 +19,27 @@
 
 <script>
 import Recipe from './Recipe.vue';
+import Details from './Details.vue';
 
 export default {
   props: ['recipes', 'loading', 'error'],
   components: {
     Recipe,
+    Details
+  },
+  data() {
+    return {
+      selected: '0'
+    }
+  },
+  methods: {
+    showDetails(idMeal) {
+      if(this.selected == idMeal) {
+        this.selected = 0
+      } else {
+        this.selected = idMeal;
+      }
+    }
   }
 }
 </script>
@@ -28,7 +49,6 @@ export default {
     grid-area: main;
     height: 100%;
     overflow-y: scroll;
-    background-color: chocolate;
   }
   .recipes {
     padding: 3vw;
@@ -38,10 +58,7 @@ export default {
     gap: 3vw;
     grid-auto-flow: dense;
   }
-  .details {
-    background-color: red;
-    padding: 3px;
-    grid-column: span 3; /* fro 3 columns! */
-    /* grid-column: 1 / -1;  try for more ?*/
+  .not-selected {
+    opacity: 0.5;
   }
 </style>

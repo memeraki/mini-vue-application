@@ -1,14 +1,12 @@
 <template>
   <div class="recipe">
-    <figure>
+    <div class="img">
       <img :src="meal.strMealThumb" :alt="meal.strMeal" >
-      <figcaption>
-        {{ meal.strMeal }}
-      </figcaption>
-    </figure>
-    <div>
-      <input type="checkbox" :id="meal.idMeal" :value="meal.idMeal" v-model="favourites">
-      <label :for="meal.idMeal" @click="update">heart</label>
+      <p> {{ meal.strMeal }} </p>
+    </div>
+    <div class="heart">
+      <input type="checkbox" :id="meal.idMeal" :value="meal.idMeal" v-model="checked">
+      <label :for="meal.idMeal" @click="update">&#10084;</label>
     </div>
   </div>
 </template>
@@ -18,12 +16,18 @@ export default {
   props: ['meal'],
   data() {
     return {
+      checked: false,
       favourites: [],
-      favo: localStorage.getItem("Favourites")
     }
   },
-  computed: {
-    
+  created() {
+    const fav = JSON.parse(localStorage.getItem("Favourites")) || {
+        recipes: []
+      };
+    this.favourites = fav.recipes;
+    if(this.favourites.indexOf(this.meal.idMeal) > -1) {
+      this.checked = true;
+    }
   },
   methods: {
     update() {
@@ -44,11 +48,46 @@ export default {
 
 <style>
 .recipe {
-  border-radius: 10px;
+  position: relative;
+  border-radius: 15px;
   border: 1px solid black;
   overflow: hidden;
+  height: 200px;
 }
-img {
+.img img{
   width: 100%;
+}
+
+.img p {
+  background-color: white;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  font-size: 10;
+  line-height: 14px;
+  position: absolute;
+  bottom: 0;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heart {
+  font-size: 25px;
+  color: white;
+  position: absolute;
+  bottom: 50px;
+  right: 10px;
+}
+.heart input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.heart:hover{
+  color: red; 
+}
+.heart input[type="checkbox"]:checked + label {
+  color: red; 
 }
 </style>

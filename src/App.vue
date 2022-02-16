@@ -181,13 +181,34 @@ html {
   }
 
   li {
+    margin: 7.5px 2.5px;
+  }
+  .sidebar input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .sidebar label {
     border-radius: 5px;
-    padding: 2px;
-    margin: 2px;
+    padding: 5px;
+    padding-left: 12px;
+    position: relative;
     background-color: cornsilk;
   }
-  .red {
-    background-color: red;
-    padding: 5px;
+  .sidebar label:hover {
+    background-color: grey;
   }
+  .sidebar label::before {
+    content: "x";
+    font-variant: small-caps;
+    font-size: 10px;
+    position: absolute;
+    top: 7px;
+    left: 3px;
+    height: 100%;
+  }
+  .sidebar input[type="checkbox"]:checked + label {
+    background-color: grey;
+  }
+
 </style>
