@@ -18,8 +18,6 @@ export default {
   props: ['recipes', 'loading', 'error'],
   components: {
     Recipe,
-  },
-  methods: {
   }
 }
 </script>
@@ -27,6 +25,9 @@ export default {
 <style>
   .main {
     grid-area: main;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: chocolate;
   }
   .recipes {
     padding: 3vw;
@@ -34,5 +35,10 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto; 
     gap: 3vw;
+  }
+  .red {
+    z-index: 999999999;
+    background-color: red;
+    padding: 3px;
   }
 </style>

@@ -1,45 +1,69 @@
 <template>
   <div class="mini-app">
-    <Header />
-    <SideBar 
-      :categories="categories"
-      :areas="areas"
-      :tags="tags"
-    />
+    <header class="header">
+      <div class="searchBar">
+        <input type="text" v-model="search" placeholder="Search meal by name" />
+      </div>
+      <Favourites />
+    </header>
+    <div class="sidebar">
+      <div>
+        <h2>Category</h2>
+        <ul>
+          <li v-for="(categoryName, index) in filtersList.categories" :key="index">
+            <input type="checkbox" :id="categoryName" :value="categoryName" v-model="selectedAttributes">
+            <label :for="categoryName">{{ categoryName }}</label>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Area</h2>
+        <ul>
+          <li v-for="(areaName, index) in filtersList.areas" :key="index">
+            <input type="checkbox" :id="areaName" :value="areaName" v-model="selectedAttributes">
+            <label :for="areaName">{{ areaName }}</label>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Tags</h2>
+        <ul>
+          <li v-for="(tagName, index) in filtersList.tags" :key="index">
+            <input type="checkbox" :id="tagName" :value="tagName" v-model="selectedAttributes">
+            <label :for="tagName">{{ tagName }}</label>
+          </li>
+        </ul>
+      </div>
+    </div>
     <RecipesList 
       :recipes="filteredRecipes"
       :loading="loading"
       :error="error"
     />
-    <div class="try">
-      <input type="text" v-model="name" placeholder="Filter By Name"/>
-      <ul>
-        <li v-for="recipe in filteredRecipes" :key="recipe.idMeal">{{recipe.strMeal}}</li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
-import SideBar from './components/SideBar.vue';
 import RecipesList from './components/RecipesList.vue';
+import Favourites from './components/Favourites.vue';
 
 export default {
   components: {
-    Header, 
-    SideBar,
-    RecipesList
+    RecipesList,
+    Favourites
   },
   data() {
     return {
       loading: false,
       recipes: [],
       error: null,
-      categories: [],
-      areas: [],
-      tags: [],
-      name: ""
+      search: "",
+      filters: { 
+        categories: [],
+        areas: [],
+        tags: [],  
+      },
+      selectedAttributes: []
     }
   },
   async created() {
@@ -52,28 +76,46 @@ export default {
       this.error = "Problem with fetching data. " + response.status + " " + response.statusText; 
     }
     this.loading = false;
-    this.updateSideBar();
   },
   computed: {
     filteredRecipes() {
-      return this.recipes.filter(recipe => {
-        return recipe.strMeal.toLowerCase().indexOf(this.name.toLowerCase()) > -1
+      // Recipets list update
+      let temp = this.recipes.filter(recipe => {
+        // Recipets list update by name
+        return recipe.strMeal.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
+
+      return !this.selectedAttributes.length ? temp : temp.filter(recipe => {
+        // Recipets list update by attribytes
+        let tagsArray = [];
+        if(recipe.strTags) {
+          tagsArray = recipe.strTags.replace(/\s/g, '').split(',');
+        }
+        return this.selectedAttributes.every( att => Object.values(recipe).indexOf(att) > -1 || tagsArray.includes(att) );
+      });
+    },
+    filtersList() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      this.filters = {
+        categories: [],
+        areas: [],
+        tags: [],  
+      }
+      // Attributes update
+      this.filteredRecipes.forEach(recipe => {
+        if(!this.filters.categories.includes(recipe.strCategory)) this.filters.categories.push(recipe.strCategory);
+        if(!this.filters.areas.includes(recipe.strArea)) this.filters.areas.push(recipe.strArea);
+        if(recipe.strTags) {
+          const tagsArray = recipe.strTags.replace(/\s/g, '').split(',');
+          tagsArray.forEach(tag => {
+            if(!this.filters.tags.includes(tag)) this.filters.tags.push(tag);
+          });
+        }
+      });
+      return this.filters;
     }
   },
   methods: {
-    updateSideBar() {
-      this.recipes.forEach(recipe => {
-        if(!this.categories.includes(recipe.strCategory)) this.categories.push(recipe.strCategory);
-        if(!this.areas.includes(recipe.strArea)) this.areas.push(recipe.strArea);
-        if(recipe.strTags) {
-          const tagsArray = recipe.strTags.split(',');
-          tagsArray.forEach(tag => {
-            if(!this.tags.includes(tag)) this.tags.push(tag);
-          })
-        }
-      });
-    } 
   },
 }
 </script>
@@ -111,4 +153,41 @@ html {
     "sidebar main main main"
     "sidebar main main main";
 }
+.header {
+    grid-area: header;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 25px;
+    background-color: lightyellow;
+  }
+  .sidebar {
+    grid-area: sidebar;
+    padding: 10px;
+    background-color: darkgrey;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 100%;
+  }
+  ul {
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+  }
+
+  li {
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+    background-color: cornsilk;
+  }
+  .red {
+    background-color: red;
+    padding: 5px;
+  }
 </style>
