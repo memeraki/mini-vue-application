@@ -31,16 +31,16 @@ export default {
   },
   methods: {
     update() {
-      const fav = JSON.parse(localStorage.getItem("Favourites")) || {
+      const localStorageData = JSON.parse(localStorage.getItem("Favourites")) || {
         recipes: []
       };
-      const index = fav.recipes.indexOf(this.meal.idMeal)
+      const index = localStorageData.recipes.indexOf(this.meal.idMeal)
       if(index > -1) {
-        fav.recipes.splice(index, 1);
+        localStorageData.recipes.splice(index, 1);
       } else {
-        fav.recipes.push(this.meal.idMeal);
+        localStorageData.recipes.push(this.meal.idMeal);
       }
-      localStorage.setItem("Favourites", JSON.stringify(fav));
+      localStorage.setItem("Favourites", JSON.stringify(localStorageData));
     }
   }
 }

@@ -1,10 +1,14 @@
 <template>
   <div class="mini-app">
     <header class="header">
+      <nav>nav</nav>
       <div class="searchBar">
         <input type="text" v-model="search" placeholder="Search meal by name" />
       </div>
-      <Favourites />
+      <Favourites 
+        :recipes="recipes"
+        @clicked="searchName"
+      />
     </header>
     <div class="sidebar">
       <div>
@@ -116,6 +120,9 @@ export default {
     }
   },
   methods: {
+    searchName(name) {
+      this.search = name;
+    }
   },
 }
 </script>
@@ -140,13 +147,14 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  font-size: 15px;
 }
 .mini-app {
   width: 100%;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 100px auto;
+  grid-template-rows: 50px auto;
   grid-template-areas: 
     "header header header header"
     "sidebar main main main"
@@ -157,10 +165,11 @@ html {
     grid-area: header;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    align-items: center;
     width: 100%;
-    padding: 25px;
-    background-color: lightyellow;
+    background-color: yellow;
+    padding: 3vw;
   }
   .sidebar {
     grid-area: sidebar;
@@ -211,4 +220,17 @@ html {
     background-color: grey;
   }
 
+  /* header */
+  nav {
+    flex-basis: 100%;
+  }
+  .searchBar {
+    flex-basis: 200%;
+    margin: 3vw;
+  }
+  .searchBar input {
+    width: 100%;
+    border-radius: 5px;
+    padding: 2px;
+  }
 </style>
