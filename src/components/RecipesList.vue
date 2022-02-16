@@ -2,11 +2,12 @@
   <div class="main">
     <div v-if="loading" class="loading">Loading...</div>
     <div v-else class="recipes">
-      <Recipe 
-        v-for="recipe of recipes" 
-        :key="recipe.idMeal" 
-        :meal="recipe"  
-      />
+      <template v-for="recipe of recipes" :key="recipe.idMeal">
+        <Recipe 
+          :meal="recipe"  
+        />
+        <div class="details">Details about: {{recipe.idMeal}}</div>
+      </template>
     </div>
   </div>
 </template>
@@ -35,10 +36,12 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto; 
     gap: 3vw;
+    grid-auto-flow: dense;
   }
-  .red {
-    z-index: 999999999;
+  .details {
     background-color: red;
     padding: 3px;
+    grid-column: span 3; /* fro 3 columns! */
+    /* grid-column: 1 / -1;  try for more ?*/
   }
 </style>

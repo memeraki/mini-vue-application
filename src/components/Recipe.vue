@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       favourites: [],
-      favo: localStorage.getItem("fav")
+      favo: localStorage.getItem("Favourites")
     }
   },
   computed: {
@@ -27,11 +27,16 @@ export default {
   },
   methods: {
     update() {
-      // let fav = localStorage.getItem("fav") || [];
-      // jesli nie ma w fav
-      const fav = [localStorage.getItem("fav"), this.meal.idMeal];
-      // jesli jest to trzeba fav przefiltowac i usunac
-      localStorage.setItem("fav", fav);
+      const fav = JSON.parse(localStorage.getItem("Favourites")) || {
+        recipes: []
+      };
+      const index = fav.recipes.indexOf(this.meal.idMeal)
+      if(index > -1) {
+        fav.recipes.splice(index, 1);
+      } else {
+        fav.recipes.push(this.meal.idMeal);
+      }
+      localStorage.setItem("Favourites", JSON.stringify(fav));
     }
   }
 }
