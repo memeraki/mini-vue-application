@@ -56,7 +56,7 @@ export default {
     /* display: none; */
     display: flex;
     height: auto;
-    border: 1px solid black;
+    border: 1px solid #222222;
     border-radius: 15px;
     overflow: hidden;
     height: 250px;

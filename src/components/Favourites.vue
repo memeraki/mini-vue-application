@@ -54,8 +54,8 @@ export default {
   background-color: white;
   border-radius: 15px;
   flex-basis: 100%;
-  padding: 5px;
-  height: 25px;
+  padding: 7px;
+  height: 30px;
   z-index: 2;
   text-transform: uppercase;
 }
@@ -66,18 +66,19 @@ export default {
 span {
   position: absolute;
   right: 10px;
-  color: red;
+  color: #DA3C3C;
+  font-size: 20px;
+  margin-top: -6px;
 }
 .list {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 0;
-  /* height: 100px; */
   width: 100%;
   background-color: white;
   z-index: -1;
   border-radius: 15px;
-  padding: 20px;
+  padding: 3vw;
 }
 .list img {
   height: 100%;

@@ -1,9 +1,11 @@
 <template>
   <div class="mini-app">
     <header class="header">
-      <nav>nav</nav>
+      <nav>
+        <img src="./assets/bars-solid.svg" alt="menu icon" >
+      </nav>
       <div class="searchBar">
-        <input type="text" v-model="search" placeholder="Search meal by name" />
+        <input type="text" v-model="search" placeholder="Search" />
       </div>
       <Favourites 
         :recipes="recipes"
@@ -146,15 +148,14 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #222222;
   font-size: 15px;
 }
 .mini-app {
   width: 100%;
-  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 50px auto;
+  grid-template-rows: calc(50px + (3vw)) auto;
   grid-template-areas: 
     "header header header header"
     "sidebar main main main"
@@ -165,30 +166,37 @@ html {
     grid-area: header;
     display: flex;
     flex-flow: row nowrap;
-    /* justify-content: space-evenly; */
     align-items: center;
     width: 100%;
-    background-color: yellow;
+    background-color: #F7B32B;
     padding: 3vw;
   }
   .sidebar {
     grid-area: sidebar;
-    padding: 10px;
-    background-color: darkgrey;
+    padding: 3vw;
+    background-color: #747C92;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     height: 100%;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 1vw;
+    text-align: left;
+  }
+  h3 {
+    font-size: 1.2em;
   }
   ul {
     list-style: none;
-    border: 1px solid black;
+    border: 1px solid #222222;
     border-radius: 5px;
     display: flex;
     flex-flow: row wrap;
-    padding: 10px;
+    padding: 1vw;
+    margin-bottom: 3vw;
   }
-
   li {
     margin: 7.5px 2.5px;
   }
@@ -203,9 +211,10 @@ html {
     padding-left: 12px;
     position: relative;
     background-color: cornsilk;
+    cursor: pointer;
   }
   .sidebar label:hover {
-    background-color: grey;
+    background-color: #F7B32B;
   }
   .sidebar label::before {
     content: "x";
@@ -217,12 +226,18 @@ html {
     height: 100%;
   }
   .sidebar input[type="checkbox"]:checked + label {
-    background-color: grey;
+    background-color: #F7B32B;
   }
 
   /* header */
   nav {
     flex-basis: 100%;
+    display: flex;
+
+  }
+  nav img {
+    height: 30px;
+    cursor: pointer;
   }
   .searchBar {
     flex-basis: 200%;
@@ -230,7 +245,15 @@ html {
   }
   .searchBar input {
     width: 100%;
-    border-radius: 5px;
-    padding: 2px;
+    border-radius: 15px;
+    background: url("./assets/magnifying-glass-solid.svg") no-repeat scroll 10px;
+    background-size: 20px;
+    padding-left:35px;
+    height: 30px;
+    border: 1px solid #222222;
+    text-align: left;
+  }
+  .searchBar input::placeholder {
+    text-transform: uppercase;
   }
 </style>

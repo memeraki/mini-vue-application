@@ -50,7 +50,7 @@ export default {
 .recipe {
   position: relative;
   border-radius: 15px;
-  border: 1px solid black;
+  border: 1px solid #222222;
   overflow: hidden;
   height: 200px;
 }
@@ -73,6 +73,7 @@ export default {
   align-items: center;
 }
 .heart {
+  cursor: pointer;
   font-size: 25px;
   color: white;
   position: absolute;
@@ -84,10 +85,10 @@ export default {
     width: 0;
     height: 0;
 }
-.heart:hover{
-  color: red; 
-}
+/* .heart:hover{
+  color: #F7B32B; 
+} */
 .heart input[type="checkbox"]:checked + label {
-  color: red; 
+  color: #DA3C3C; 
 }
 </style>
