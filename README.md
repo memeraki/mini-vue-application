@@ -11,6 +11,7 @@ npm run serve
 ## About
 
 Application based on vue-cli
+
 It gets the data from the public API - [Free meal API](https://www.themealdb.com/api.php)
 
 Recipes list can be:
