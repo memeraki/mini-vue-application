@@ -10,10 +10,10 @@ npm run serve
 
 ## About
 
-Application creates an application based on vue-cli
+Application based on vue-cli
 It gets the data from the public API - [Free meal API](https://www.themealdb.com/api.php)
 
-Recipes list and can be:
+Recipes list can be:
 - filter by attributes
 - search by name
 - add to favourites list and saved in localStorage
