@@ -1,7 +1,7 @@
 <template>
   <div class="favourites" @mouseleave="isHidden = !isHidden">
     <div class="show" @mouseover="update">
-      Favourites <span>&#10084;</span>
+      <span class="fav-text">Favourites</span> <span class="fav-icon">&#10084;</span>
     </div>
     <div class="list" v-if="!isHidden">
       <div class="list-item" 
@@ -63,7 +63,7 @@ export default {
   border-radius: 15px;
   text-transform: uppercase;
 }
-span {
+.fav-icon {
   position: absolute;
   right: 10px;
   color: #DA3C3C;
@@ -72,26 +72,28 @@ span {
 }
 .list {
   position: absolute;
-  top: 30%;
+  top: 0;
   left: 0;
   width: 100%;
   background-color: white;
   z-index: -1;
   border-radius: 15px;
-  padding: 3vw;
+  padding: 6vw 3vw 2vw 3vw;
+  box-shadow: 0px 2px 3px 0px #222222;
 }
 .list img {
-  height: 100%;
+  height: 40px;
 }
 .list-item {
   cursor: pointer;
-  height: 30px;
-  font-size: 12px;
+  height: max-content;
+  font-size: 15px;
   text-align: left;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  margin-top: 5px;
+  align-items: center;
+  margin: 2vw 0;
 }
 .list-item div {
   margin-left: 5px;
@@ -99,4 +101,30 @@ span {
   justify-content: center;
   align-items: center;
 }
+/* mobile */
+  @media (max-width: 780px) {
+    .favourites {
+      font-size: 15px;
+    }
+    .fav-text {
+      display: none;
+    }
+    .fav-icon {
+      right: 50%;
+      transform: translateX(50%);
+    }
+    .list-item {
+      flex-flow: column nowrap;
+      align-items: center;
+      font-size: 10px;
+      text-align: center;
+    }
+    .list img {
+      height: auto;
+      width: 35%;
+    }
+    .list-item div {
+      margin-top: 5px;
+    }
+  }
 </style>

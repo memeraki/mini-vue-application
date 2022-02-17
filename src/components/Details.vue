@@ -51,9 +51,7 @@ export default {
   .details {
     text-align: left;
     font-size: 14px;
-    grid-column: span 3; /* fro 3 columns! */
-    /* grid-column: 1 / -1;  try for more ?*/
-    /* display: none; */
+    grid-column: 1 / -1;  
     display: flex;
     height: auto;
     border: 1px solid #222222;
@@ -68,8 +66,9 @@ export default {
     padding: 0;
   }
   .text {
-    margin: 10px;
+    margin: 1vw;
     overflow-y: scroll;
+    padding: 0 1vw 0 0;
   }
   .instructions h2 {
     margin-bottom: 15px;
@@ -78,7 +77,29 @@ export default {
     margin: 15px 0;
   }
   .ingredients p {
-    /* font-variant: small-caps; */
     text-transform: uppercase;
+  }
+  .text::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #222;
+  }
+  .text::-webkit-scrollbar {
+    width: 6px;
+    background-color: #222;
+  }
+  .text::-webkit-scrollbar-thumb {
+    background-color: #F7B32B;
+  }
+  /* mobile */
+  @media (max-width: 780px) {
+    .movie {
+      height: auto; /* ??? */
+      width: 50%;
+      margin: 0;
+      padding: 0;
+    }
+    .details {
+      height: 200px;
+    }
   }
 </style>

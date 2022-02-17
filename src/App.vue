@@ -2,7 +2,10 @@
   <div class="mini-app">
     <header class="header">
       <nav>
-        <img src="./assets/bars-solid.svg" alt="menu icon" >
+        <button 
+          v-on:click="showSidebar = !showSidebar" >
+          <img src="./assets/bars-solid.svg" alt="menu icon" />
+        </button>
       </nav>
       <div class="searchBar">
         <input type="text" v-model="search" placeholder="Search" />
@@ -12,7 +15,7 @@
         @clicked="searchName"
       />
     </header>
-    <div class="sidebar">
+    <div class="sidebar" v-if="!showSidebar">
       <div>
         <h2>Category</h2>
         <ul>
@@ -69,7 +72,8 @@ export default {
         areas: [],
         tags: [],  
       },
-      selectedAttributes: []
+      selectedAttributes: [],
+      showSidebar: false
     }
   },
   async created() {
@@ -228,8 +232,6 @@ html {
   .sidebar input[type="checkbox"]:checked + label {
     background-color: #F7B32B;
   }
-
-  /* header */
   nav {
     flex-basis: 100%;
     display: flex;
@@ -255,5 +257,21 @@ html {
   }
   .searchBar input::placeholder {
     text-transform: uppercase;
+    color: #222222;
+    opacity: 0.5;
+  }
+  /* mobile */
+  @media (max-width: 780px) {
+    .mini-app {
+      grid-template-areas: 
+        "header header header header"
+        "sidebar sidebar sidebar sidebar"
+        "main main main main"
+        "main main main main"
+        "main main main main";
+    }
+    .searchBar input::placeholder {
+      font-size: 12px;
+    }
   }
 </style>

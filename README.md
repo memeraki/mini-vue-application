@@ -1,24 +1,20 @@
 # mini-vue-application
 
-## Project setup
+## Project setup & Compiles and hot-reloads for development
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## About
 
-### Lints and fixes files
-```
-npm run lint
-```
+Application creates an application based on vue-cli
+It gets the data from the public API - [Free meal API](https://www.themealdb.com/api.php)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Recipes list and can be:
+- filter by attributes
+- search by name
+- add to favourites list and saved in localStorage
+- and more...

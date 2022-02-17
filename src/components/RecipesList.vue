@@ -48,7 +48,7 @@ export default {
   .main {
     grid-area: main;
     height: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
   .recipes {
     padding: 3vw;
@@ -60,5 +60,15 @@ export default {
   }
   .not-selected {
     opacity: 0.5;
+  }
+  /* mobile */
+  @media (max-width: 780px) {
+    .recipes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto; 
+      gap: 3vw;
+      grid-auto-flow: dense;
+    }
   }
 </style>

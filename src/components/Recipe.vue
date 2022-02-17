@@ -57,7 +57,6 @@ export default {
 .img img{
   width: 100%;
 }
-
 .img p {
   background-color: white;
   text-align: center;
@@ -85,10 +84,13 @@ export default {
     width: 0;
     height: 0;
 }
-/* .heart:hover{
-  color: #F7B32B; 
-} */
 .heart input[type="checkbox"]:checked + label {
   color: #DA3C3C; 
+}
+/* mobile */
+@media (max-width: 780px) {
+  .recipe {
+    height: 150px;
+  }
 }
 </style>
