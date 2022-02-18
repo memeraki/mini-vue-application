@@ -1,5 +1,7 @@
 # mini-vue-application
 
+[Live - visit to see the application](https://memeraki.github.io/mini-vue-application/)
+
 ## Project setup & Compiles and hot-reloads for development
 ```
 npm install
